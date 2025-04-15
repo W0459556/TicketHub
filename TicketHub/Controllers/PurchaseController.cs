@@ -35,6 +35,11 @@ namespace TicketHub.Controllers
             }
             string queueName = "tickethub";
             string? connectionString = _configuration["AzureStorageConnectionString"];
+
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                return BadRequest("An error was encountered");
+            }
             QueueClient queueClient = new QueueClient(connectionString, queueName);
 
             string message = JsonSerializer.Serialize(tickethub);
