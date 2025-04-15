@@ -21,7 +21,7 @@ namespace TicketHub
         public string Phone { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Quantity is required.")]
-        [Range(1, 10, ErrorMessage = "Quantity must be between 1-10.")] // no scalpers here! 
+        [Range(1, 10, ErrorMessage = "Quantity must be between 1-10.")] 
         public int Quantity { get; set; } = 1;
 
         [Required(ErrorMessage = "Card number is required.")]
