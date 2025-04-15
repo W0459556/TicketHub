@@ -3,7 +3,7 @@ using System.Text.Json;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
-using TicketHub.Api.Models; 
+using TicketHub.Api.Models;
 
 namespace TicketHub.Functions
 {
@@ -33,15 +33,20 @@ namespace TicketHub.Functions
                 {
                     await conn.OpenAsync();
 
+                    // Extract last 4 digits of credit card
+                    var creditCardLast4 = purchase.CreditCard.Length >= 4
+                        ? purchase.CreditCard.Substring(purchase.CreditCard.Length - 4)
+                        : purchase.CreditCard;
+
                     var cmd = new SqlCommand(@"
                         INSERT INTO TicketPurchases (
                             ConcertId, Email, Name, Phone, Quantity,
-                            CreditCard, Expiration, SecurityCode,
+                            CreditCardLast4, Expiration,
                             Address, City, Province, PostalCode, Country,
                             RawData
                         ) VALUES (
                             @ConcertId, @Email, @Name, @Phone, @Quantity,
-                            @CreditCard, @Expiration, @SecurityCode,
+                            @CreditCardLast4, @Expiration,
                             @Address, @City, @Province, @PostalCode, @Country,
                             @RawData
                         )", conn);
@@ -51,15 +56,14 @@ namespace TicketHub.Functions
                     cmd.Parameters.AddWithValue("@Name", purchase.Name);
                     cmd.Parameters.AddWithValue("@Phone", purchase.Phone);
                     cmd.Parameters.AddWithValue("@Quantity", purchase.Quantity);
-                    cmd.Parameters.AddWithValue("@CreditCard", purchase.CreditCard);
+                    cmd.Parameters.AddWithValue("@CreditCardLast4", creditCardLast4);
                     cmd.Parameters.AddWithValue("@Expiration", purchase.Expiration);
-                    cmd.Parameters.AddWithValue("@SecurityCode", purchase.SecurityCode);
                     cmd.Parameters.AddWithValue("@Address", purchase.Address);
                     cmd.Parameters.AddWithValue("@City", purchase.City);
                     cmd.Parameters.AddWithValue("@Province", purchase.Province);
                     cmd.Parameters.AddWithValue("@PostalCode", purchase.PostalCode);
                     cmd.Parameters.AddWithValue("@Country", purchase.Country);
-                    cmd.Parameters.AddWithValue("@RawData", queueItem); 
+                    cmd.Parameters.AddWithValue("@RawData", queueItem);
 
                     await cmd.ExecuteNonQueryAsync();
                 }
@@ -69,7 +73,7 @@ namespace TicketHub.Functions
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error processing queue message");
-                throw; 
+                throw;
             }
         }
     }
