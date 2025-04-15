@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\byoung\\source\\repos\\TicketHub\\TicketHub.Api\\TicketHub.Api.csproj": {}
+    "C:\\Users\\byoung\\Source\\Repos\\TicketHub\\TicketHub.Api\\TicketHub.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\byoung\\source\\repos\\TicketHub\\TicketHub.Api\\TicketHub.Api.csproj": {
+    "C:\\Users\\byoung\\Source\\Repos\\TicketHub\\TicketHub.Api\\TicketHub.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\byoung\\source\\repos\\TicketHub\\TicketHub.Api\\TicketHub.Api.csproj",
+        "projectUniqueName": "C:\\Users\\byoung\\Source\\Repos\\TicketHub\\TicketHub.Api\\TicketHub.Api.csproj",
         "projectName": "TicketHub.Api",
-        "projectPath": "C:\\Users\\byoung\\source\\repos\\TicketHub\\TicketHub.Api\\TicketHub.Api.csproj",
+        "projectPath": "C:\\Users\\byoung\\Source\\Repos\\TicketHub\\TicketHub.Api\\TicketHub.Api.csproj",
         "packagesPath": "C:\\Users\\byoung\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\byoung\\source\\repos\\TicketHub\\TicketHub.Api\\obj\\",
+        "outputPath": "C:\\Users\\byoung\\Source\\Repos\\TicketHub\\TicketHub.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

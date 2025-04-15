@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketHub.Api", "TicketHub.Api\TicketHub.Api.csproj", "{41BC88F6-1661-43ED-AEB2-9D332CB1C2E2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketHub.Functions", "TicketHub.Functions\TicketHub.Functions\TicketHub.Functions.csproj", "{29D0E09C-D826-41F9-969F-EF993E1EF690}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketHub", "TicketHub.Api\TicketHub.csproj", "{41BC88F6-1661-43ED-AEB2-9D332CB1C2E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +15,6 @@ Global
 		{41BC88F6-1661-43ED-AEB2-9D332CB1C2E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41BC88F6-1661-43ED-AEB2-9D332CB1C2E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41BC88F6-1661-43ED-AEB2-9D332CB1C2E2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{29D0E09C-D826-41F9-969F-EF993E1EF690}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{29D0E09C-D826-41F9-969F-EF993E1EF690}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{29D0E09C-D826-41F9-969F-EF993E1EF690}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{29D0E09C-D826-41F9-969F-EF993E1EF690}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

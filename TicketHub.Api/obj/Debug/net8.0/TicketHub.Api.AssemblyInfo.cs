@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TicketHub.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6c97b63d3d2cf700cb8c6ce3925063095016982e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8d3ede448d7c4e0968c6a445f40901f0cc4fb7e4")]
 [assembly: System.Reflection.AssemblyProductAttribute("TicketHub.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TicketHub.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
