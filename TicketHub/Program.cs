@@ -49,7 +49,6 @@ if (builder.Environment.IsDevelopment())
     builder.Configuration.AddUserSecrets<Program>();
 }
 
-var app = builder.Build();
 
 builder.Services.AddSingleton(provider =>
 {
@@ -57,6 +56,8 @@ builder.Services.AddSingleton(provider =>
         ?? throw new InvalidOperationException("Missing Azure Storage connection string");
     return new QueueClient(connectionString, "tickethub");
 });
+
+var app = builder.Build();
 
 
 // Configure the HTTP request pipeline
