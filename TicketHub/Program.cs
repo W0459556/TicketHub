@@ -1,3 +1,4 @@
+using Azure.Storage.Queues;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -49,6 +50,13 @@ if (builder.Environment.IsDevelopment())
 }
 
 var app = builder.Build();
+
+builder.Services.AddSingleton(sp =>
+{
+    var connectionString = builder.Configuration.GetConnectionString("AzureStorage__ConnectionString");
+    return new QueueClient(connectionString, "tickethub");
+});
+
 
 // Configure the HTTP request pipeline
 app.UseSwagger();
