@@ -1,59 +1,45 @@
-using Microsoft.OpenApi.Models;
-
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
 builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddSwaggerGen(c =>
+// Allow CORS
+builder.Services.AddCors(options =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo
+    options.AddPolicy("AllowAll", policy =>
     {
-        Title = "TicketHub API",
-        Version = "v1",
-        Description = "Asst 3",
+        policy.AllowAnyOrigin()  // Allow all origins (adjust this for more security)
+              .AllowAnyMethod()  // Allow any HTTP method (GET, POST, etc.)
+              .AllowAnyHeader(); // Allow any header
     });
-
-    try
-    {
-        var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
-        var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-        if (File.Exists(xmlPath))
-        {
-            c.IncludeXmlComments(xmlPath);
-        }
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Error loading XML comments: {ex.Message}");
-    }
 });
 
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+// Add user secrets (for development)
 if (builder.Environment.IsDevelopment())
 {
     builder.Configuration.AddUserSecrets<Program>();
 }
 
-var app = builder.Build();
-
-app.UseSwagger();
-app.UseSwaggerUI(c =>
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "TicketHub API v1");
-    c.DisplayRequestDuration();
-    c.EnableDeepLinking();
-});
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseHttpsRedirection();
+
+// Use CORS middleware before UseAuthorization()
+app.UseCors("AllowAll");
+
 app.UseAuthorization();
+
 app.MapControllers();
 
-try
-{
-    app.Run();
-}
-catch (Exception ex)
-{
-    Console.WriteLine($"Application failed to start: {ex}");
-    throw;
-}
+app.Run();
