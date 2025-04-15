@@ -51,9 +51,10 @@ if (builder.Environment.IsDevelopment())
 
 var app = builder.Build();
 
-builder.Services.AddSingleton(sp =>
+builder.Services.AddSingleton(provider =>
 {
-    var connectionString = builder.Configuration.GetConnectionString("AzureStorage__ConnectionString");
+    var connectionString = provider.GetRequiredService<IConfiguration>()["AzureStorage:ConnectionString"]
+        ?? throw new InvalidOperationException("Missing Azure Storage connection string");
     return new QueueClient(connectionString, "tickethub");
 });
 
