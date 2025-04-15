@@ -1,12 +1,10 @@
 using Microsoft.OpenApi.Models;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services to the container
 builder.Services.AddControllers();
 
-// Allow CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -17,46 +15,61 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
+// Enhanced Swagger configuration
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "TicketHub API",
         Version = "v1",
-        Description = "API for TicketHub application"
+        Description = "Asst 3",
     });
 
-    // Add this if you have XML comments
-    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    c.IncludeXmlComments(xmlPath);
+    try
+    {
+        var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+        var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+        if (File.Exists(xmlPath))
+        {
+            c.IncludeXmlComments(xmlPath);
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error loading XML comments: {ex.Message}");
+    }
 });
-var app = builder.Build();
 
-// Add user secrets (for development)
+// Add user secrets in development
 if (builder.Environment.IsDevelopment())
 {
     builder.Configuration.AddUserSecrets<Program>();
 }
 
-if (app.Environment.IsDevelopment())
+var app = builder.Build();
+
+// Configure the HTTP request pipeline
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c => 
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "TicketHub API v1");
-    });
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "TicketHub API v1");
+    c.DisplayRequestDuration();
+    c.EnableDeepLinking();
+});
 
 app.UseHttpsRedirection();
-
-// Use CORS middleware before UseAuthorization()
 app.UseCors("AllowAll");
-
 app.UseAuthorization();
-
 app.MapControllers();
 
-app.Run();
+try
+{
+    app.Run();
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Application failed to start: {ex}");
+    throw;
+}
